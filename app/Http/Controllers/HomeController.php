@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\models\empresas\empresa;
 
 use App\Models\varias\setting;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Kamaln7\Toastr\Facades\Toastr;
 
@@ -45,13 +46,12 @@ class HomeController extends Controller
         $companies = empresa::orderBy('name_corto','ASC')->get();
         $json = file_get_contents(base_path('composer.json'));
         $dependen = json_decode($json, true)['require'];
-//       dd($dependen,$envs );
         return view('home',compact('envs','companies','dependen'));
     }
 
     public function selectstore( $id){
 //       si no hay registros en la tabla no los guarda, pues no encuentra. hay que arreglar
-        $Setting= \App\models\varias\Setting::findOrFail(1);
+        $Setting= Setting::findOrFail(1);
         $Setting->name = 'company';
         $Setting->val = DB::table('empresas')->where('id',$id)->value('name_corto');
         $Setting->type = 'string';
@@ -61,11 +61,22 @@ class HomeController extends Controller
         $Setting->val = $id;
         $Setting->type = 'int';
         $Setting->save();
+        $empresa = DB::table('empresas')->where('id',$id)->value('name_corto');
+        return view('shared._modal-sm',compact('empresa'));
+    }
+    public function storeano(Request $request){
 
-        $message='La empresa '.$Setting->company.' fue seleccionada';
+        $Setting=Setting::findOrFail(3);
+        $Setting->name = 'ano';
+        $Setting->val = $request->ano;
+        $Setting->type = 'string';
+        $Setting->save();
+
+        $message='La empresa '.setting('company').'y el año'.setting('ano').' fueron seleccionados';
         $title = "";
-        Toastr::success($message, $title);
-        return redirect()->route("home");
+       Toastr::success($message, $title);
+       return redirect()->route("home");
+
     }
 
 }

@@ -1,1 +1,0 @@
-<?php echo $__env->make('setting.fields._text', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Herberk\resources\views/setting/fields/email.blade.php ENDPATH**/ ?>

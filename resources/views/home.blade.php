@@ -20,10 +20,7 @@
                                      </thead>
                                      @foreach ($companies as $company)
                                          <tr data-id="{{ $company->id}}">
-                                          @tooltip
-                                          @slot('mensa', 'Edita Socio')
                                              <td><a href="{{ route('select',$company->id)}}">{{ $company->name }}</a></td>
-                                          @endtooltip
                                          </tr>
                                       @endforeach
                                 </table>

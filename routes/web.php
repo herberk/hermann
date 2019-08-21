@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/exportact', 'SettingController@exportact')->name('exportact');
 //Ruta para seleccionar empresa
     Route::get('select/{id}', 'HomeController@selectstore')->name('select');
+    Route::post('selectano', 'HomeController@storeano')->name('selectano');
 });
 
 Route::group([ 'namespace' => 'Auth'],function () {
@@ -49,6 +50,6 @@ Route::group([ 'namespace' => 'Empresas'], function () {
 Route::group([ 'namespace' => 'Empresas'], function () {
     require __DIR__ . '/routes/archivos.routes.php';
 });
-Route::group([ 'namespace' => 'Capital'], function () {
+Route::group([ 'namespace' => 'Empresas'], function () {
     require __DIR__ . '/routes/capital.routes.php';
 });

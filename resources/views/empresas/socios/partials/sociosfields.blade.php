@@ -9,7 +9,7 @@
             @endif
 
             <div class="modal-body">
-
+           {{--   primera linea--}}
                 <div class="form-row ">
                     <div class="col-sm-3">
                         <div class="input-group mb-1">
@@ -22,14 +22,6 @@
                                     <option value="{{ $empresa->id}}"{{ old('empresa_id', $socios->empresas_id) == $empresa->id ? ' selected' : '' }}> {{ $empresa->name_corto}}</option>
                                 @endforeach
                             </select>
-   {{--                         <select name="arti_id"  class="form-control py-1">
-                                <option  value="">Selecciona una declaracion</option>
-                                @foreach($art_juras as $art_jura)
-                                    <option value="{{ $art_jura->id }}"{{ old('arti_id', $juradas->arti_id) == $art_jura->id ? ' selected' : '' }}>
-                                        {{ $art_jura->name }}
-                                    </option>
-                                @endforeach
-                            </select>--}}
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -78,7 +70,7 @@
                                 <div class="input-group-text">Fonos</div>
                             </div>
                             <input id="fono" type="text" class="form-control" name="fono" value="
-                     {{ old('fono',isset($socios->fono) ? $socios->fono : null) }}" >
+                           {{ old('fono',isset($socios->fono) ? $socios->fono : null) }}" >
                         </div>
                     </div>
 

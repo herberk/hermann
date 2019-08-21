@@ -18,10 +18,7 @@
                                      </thead>
                                      <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                          <tr data-id="<?php echo e($company->id); ?>">
-                                          <?php $__env->startComponent('shared._tooltip'); ?>
-                                          <?php $__env->slot('mensa', 'Edita Socio'); ?>
                                              <td><a href="<?php echo e(route('select',$company->id)); ?>"><?php echo e($company->name); ?></a></td>
-                                          <?php echo $__env->renderComponent(); ?>
                                          </tr>
                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </table>

@@ -9,7 +9,7 @@
             <?php endif; ?>
 
             <div class="modal-body">
-
+           
                 <div class="form-row ">
                     <div class="col-sm-3">
                         <div class="input-group mb-1">
@@ -22,7 +22,6 @@
                                     <option value="<?php echo e($empresa->id); ?>"<?php echo e(old('empresa_id', $socios->empresas_id) == $empresa->id ? ' selected' : ''); ?>> <?php echo e($empresa->name_corto); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
-   
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -71,7 +70,7 @@
                                 <div class="input-group-text">Fonos</div>
                             </div>
                             <input id="fono" type="text" class="form-control" name="fono" value="
-                     <?php echo e(old('fono',isset($socios->fono) ? $socios->fono : null)); ?>" >
+                           <?php echo e(old('fono',isset($socios->fono) ? $socios->fono : null)); ?>" >
                         </div>
                     </div>
 

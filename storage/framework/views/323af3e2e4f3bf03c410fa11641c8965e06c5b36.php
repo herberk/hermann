@@ -14,7 +14,7 @@
                             </ul>
                         </div>
                     <?php endif; ?>
-               <?php echo $__env->make('varias.select_empresa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                  <?php echo $__env->make('setting._confirm', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
         </div>
     </div>

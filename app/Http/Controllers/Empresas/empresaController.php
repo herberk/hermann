@@ -22,8 +22,6 @@ class empresaController extends Controller
         $this->middleware('auth');
     }
 
-
-
     public function index(Request $request){
         $empresas = empresa::query()
        ->with('juradas')

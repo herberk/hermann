@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-
+{{--    <div class="col-md-8 col-md-offset-2">--}}
     <div class="card card">
         <div class="card-header">
             <div class="clearfix">

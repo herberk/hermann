@@ -16,7 +16,7 @@
                             </ul>
                         </div>
                     @endif
-               @include('#')
+                  @include('setting._confirm')
             </div>
         </div>
     </div>

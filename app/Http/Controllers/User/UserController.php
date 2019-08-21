@@ -157,7 +157,7 @@ class UserController extends Controller
     {
         if ($pd <> 0) {
             $user = User::findOrFail($id);
-            $date = date('Y-m-d');
+            $date = date('d-m-Y');
             $pdf = PDF::loadView('users.exports.show', compact('user','date'));
         }
         if ($pd == 0) {

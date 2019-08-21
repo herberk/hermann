@@ -36,6 +36,24 @@ return [
                 'value' => 'company'
             ],
 
+                [
+                    'type' => 'select',
+                    'data' => 'string',
+                    'name' => 'ano',
+                    'label' => 'Año',
+                    'rules' => 'required',
+                    'class' => 'w-auto px-2',
+                    'options' => [
+                        ''      =>'Año',
+                        '2017'     =>'2017',
+                        '2018'     =>'2018',
+                        '2019'     =>'2019',
+                        '2020'     =>'2020',
+                        '2021'     =>'2021',
+                    ],
+                    'value' => ''
+                ],
+
         ]
     ],
 

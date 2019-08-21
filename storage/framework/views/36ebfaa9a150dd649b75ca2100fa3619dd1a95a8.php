@@ -2,9 +2,9 @@
     <img  src="/storage/images/hb.png" width="23" height="23" />
     <a id="profit" class="navbar-brand" href="<?php echo e(url('/')); ?>">
 
+       <?php echo e(setting('company' )); ?>
 
-       <?php echo e(setting('company')); ?>
-
+        <?php echo e(setting( 'ano')); ?>
 
        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="<?php echo e(__('Toggle navigation')); ?>">
@@ -14,10 +14,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                   <?php echo Form::select('ano',config('options.ano'),null, ['class'=>'form-control-sm py-1']); ?>
 
-                </li>
+
+
+
+
 
                 <li class="nav-item <?php echo e(! Route::is('home')?:'active'); ?>">
                     <a class="nav-link" href="<?php echo e(route('home')); ?>"><i class="fas fa-desktop" style=color:Tomato></i><strong>  Escritorio</strong></a>
@@ -43,10 +44,11 @@
                         <a class="dropdown-item" href="<?php echo e(url('empresa/index')); ?>"><i class="far fa-list-alt"></i> Lista Empresas</a>
                         <a class="dropdown-item" href="<?php echo e(url('empresa/papelera')); ?>">Papelera Empresa</a>
                         <a class="dropdown-item" href="<?php echo e(url('creatempresa')); ?>">Nueva Empresa</a>
-                        <div class="dropdown-divider"></div>
+                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?php echo e(url('/contactos')); ?>"><i class="far fa-list-alt"></i> Lista de Contactos</a>
                         <a class="dropdown-item" href="<?php echo e(url('listasocios')); ?>"><i class="far fa-list-alt"></i> Lista de Socios</a>
                         <a class="dropdown-item" href="<?php echo e(url('bancos/index')); ?>"><i class="far fa-list-alt"></i> Lista de Bancos</a>
+                         <a class="dropdown-item" href="<?php echo e(url('/capital')); ?>"><i class="far fa-list-alt"></i> Lista de Capital Propio</a>
                         <a class="dropdown-item" href="<?php echo e(url('/juradas')); ?>"><i class="far fa-list-alt"></i> Lista D.Juradas</a>
                         <a class="dropdown-item" href="<?php echo e(url('/infojuradas')); ?>">Lista empresas y sus Juradas </a>
                         <div class="dropdown-divider"></div>

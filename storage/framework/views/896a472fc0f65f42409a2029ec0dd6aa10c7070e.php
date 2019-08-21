@@ -48,9 +48,6 @@
         alert("The input value has changed. The new value is: " + val);
         // document.getElementById('acciones').readOnly = false;
     }
-
-
-
     $('#NoteModalLong').modal('show');
 
 // Sumar aportes pagados y pendientes y mostrar total
