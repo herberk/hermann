@@ -17,6 +17,7 @@
                          <a href="{{ route('users.index') }}" class="btn btn-outline-dark">Regresar al listado de usuarios</a>
                      @endif--}}
         </p>
+
     </div>
 
     @if ($messages->isNotEmpty())

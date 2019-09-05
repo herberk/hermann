@@ -16,6 +16,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('contact-us',array('as'=>'getcontact','uses'=>'ConfigController@getContact'));                    //muestra la ventana de contacto
 Route::post('contact-us',array('as'=>'postcontact','uses'=>'ConfigController@postContact'));
 Route::get('ver-msge',array('as'=>'vermensage','uses'=>'ConfigController@vermensage'))->name('ver-msge');
+Route::get('messages', 'varios\MessageController@fetch');
+Route::post('messages', 'varios\MessageController@sentMessage');
+Route::get('/chatear', 'varios\MessageController@index')->name('chatear');
+
 
 Route::group(['middleware' => 'auth'], function () {
 //Rutas para settings

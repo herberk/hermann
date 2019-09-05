@@ -11,18 +11,19 @@
     body {
         font-family: "Times New Roman", serif;
         font-size: 12px;
-        margin: 35mm 8mm 2mm 18mm;
+        margin: 23mm 8mm 2mm 18mm;
     }
 </style>
-<p Align="right">Fecha del Informe: {{ $date }}</p>
+ <p Align="right">Fecha del Informe: {{ $date }}</p>
 <h3 Align="center"><strong>DETERMINACIÓN DEL CAPITAL PROPIO TRIBUTARIO  : {{setting('company')  }}</strong></h3>
-<p Align="center" > Mètodo, activos menos pasivos a valor Tributario. </p>
+<h3 Align="center"><strong>Empresa: {{setting('company')  }}   Año: {{setting('ano')  }} </strong></h3>
+ <p Align="center" > Mètodo, activos menos pasivos a valor Tributario. </p>
 
 <table>
     <tr>
         <td style="width: 10px">1</td>
         <td style="width: 500px"><strong>Total de Activos.</strong>según Balance. Código 122 del Recuadro N° 3 del Form. 22:</td>
-        <td style="width: 80px"></td>
+        <td style="width: 80px">{{ number_format($capital->ano,0,"","") }}</td>
         <td style="width: 80px;text-align:right"><strong>{{ number_format($capital->activo,0,'','.') }}</strong></td>
         <td Align="right">+</td>
     </tr>
@@ -465,9 +466,9 @@
         <td Align="right">=</td>
     </tr>
     <tr>
-        <td style="width: 10px">6</td>
+        <td style="width: 10px">7</td>
         <td style="width: 500px"><strong>Revalorizacion del Capital Propio Tributario.</strong> </td>
-        <td style="width: 80px">{{ number_format($capital->cmanual,0,'','.') }}</td>
+        <td style="width: 80px">{{ number_format($capital->cmanual,2,",",".") }}</td>
         <td style="width: 80px;text-align:right"><strong>{{ number_format($capital->revaloriza,0,'','.') }}</strong></td>
         <td Align="right">=</td>
     </tr>

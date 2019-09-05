@@ -3,11 +3,13 @@
 namespace App\models\empresas;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class capital extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
+
     protected $fillable = [
         'ano',
         'empresas_id',

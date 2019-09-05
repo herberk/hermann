@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class)->withDefault();
     }
 
+    public function message()
+    {
+        return $this->hasMany(Message::class);
+    }
+
     public function isAdmin()
     {
         return $this->role === 'admin';
@@ -71,5 +76,9 @@ class User extends Authenticatable
         if ($this->active !== null) {
             return $this->active ? 'active' : 'inactive';
         }
+    }
+    public function messages()
+    {
+        return $this->hasMany('App\Models\varias\Message');
     }
 }

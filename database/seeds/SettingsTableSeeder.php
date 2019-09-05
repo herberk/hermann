@@ -15,22 +15,30 @@ class SettingsTableSeeder extends Seeder
             array( // row #0
                 'id' => 1,
                 'name' => 'company',
-                'val' => 'Nombre empresa',
+                'val' => 'Seleccione empresa',
                 'type' => 'string',
-                'empresas_id' => 1,
+                'empresas_id' => 0,
                 'created_at' => '2019-07-21 11:33:51',
                 'updated_at' => '2019-07-21 11:33:51',
             ),
             array( // row #1
                 'id' => 2,
                 'name' => 'id_empresa',
-                'val' => '1',
+                'val' => '0',
                 'type' => 'int',
-                'empresas_id' => 1,
+                'empresas_id' => 0,
                 'created_at' => '2019-07-21 11:33:51',
                 'updated_at' => '2019-07-21 11:33:51',
-            )
-
+            ),
+           array( // row #2
+               'id' => 3,
+               'name' => 'ano',
+               'val' => '2020',
+               'type' => 'string',
+               'empresas_id' => 0,
+               'created_at' => '2019-07-21 11:33:51',
+               'updated_at' => '2019-07-21 11:33:51',
+           )
         ));
 
     }

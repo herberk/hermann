@@ -7,7 +7,7 @@
                 <div class="clearfix">
                     <div class="Display4 float-left"></div>
                     <h4><i class="far fa-money-bill-alt"></i> Determinacion del capital propio tributario</h4>
-                    <h5 class="card-title"> Para la Empresa:  <?php echo e(setting('por_nombrar')); ?> y el Año <?php echo e(setting('ano')); ?></h5>
+                    <h5 class="card-title"> Para la Empresa:  <strong> <?php echo e(setting('company')); ?></strong> y el año comercial: <strong><?php echo e(setting('ano')); ?></strong></h5>
                     <p class="card-text"> Mètodo activos menos pasivos a valor Tributario. </p>
                     <?php echo $__env->make('shared._errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
@@ -24,19 +24,16 @@
            <?php endif; ?>
                 <div class="accordion" id="accordionExample">
                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                   <?php echo $__env->make('capital.partials._total', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </button>
-                        </div>
+                       <div class="card-header" >
+                               <?php echo $__env->make('capital.partials._activo', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                       </div>
                        
                     </div>
                     <div class="card">
                        <div class="card-header" id="headingTwo">
                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <div class="clearfix">
-                                   <span class="badge badge-primary"> <strong>2 Menos:</strong></span>  Valores I.N.T.O. y cuentas complementarias de activo
-                                        <div class="float-right">Float right on all viewport sizes</div><br>
+                                    <strong><span class="badge badge-primary"> 2 Menos:</span>  Valores I.N.T.O. y cuentas complementarias de activo</strong>
                                 </div>
                            </button>
                       </div>
@@ -55,10 +52,8 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="heading">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
-                                    <?php echo $__env->make('capital.partials._efectivo', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </button>
+                        <div class="card-header" >
+                              <?php echo $__env->make('capital.partials._efectivo', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </div>
                       
                     </div>
@@ -74,27 +69,22 @@
                     </div>
                     <div class="card">
                         <div class="card-header" >
-                            <div class="card-body" >
                                 <?php echo $__env->make('capital.partials._propio', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                            </div>
                         </div>
                       </div>
                     <div class="card">
                         <div class="card-header" >
-                            <div class="card-body" >
                                 <?php echo $__env->make('capital.partials._correccion', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-                            </div>
                         </div>
                     </div>
-
                     <div class="form-group float-right mt-3">
                         <?php if($view == 'edit'): ?>
                             <a href="<?php echo e(route('capital.index')); ?>"  class="btn btn-outline-dark btn-sm"><i class="fa fa-undo"></i> Regresar a lista Capital</a>
                             <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i>  Modificar Capital</button>
                          <?php else: ?>
                             <a href="<?php echo e(route('capital.index')); ?>"  class="btn btn-outline-dark btn-sm"><i class="fa fa-undo"></i> Regresar a lista Capital</a>
-                            <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i>  Guarda Capital</button>
+                            <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-save" onclick="sumartot();"></i>  Guarda Capital</button>
                          <?php endif; ?>
 
                     </div>

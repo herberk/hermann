@@ -66,10 +66,10 @@ class CreateCapitalsTable extends Migration
             $table->double('capitaltri',14,0)->nullable();
             $table->double('ano',4)->nullable()->unsigned();
             $table->float('cmanual',3,2)->nullable();
+            $table->double('revaloriza',14,2)->nullable();
             $table->integer('empresas_id')->unsigned();
             $table->foreign('empresas_id')->references('id')->on('empresas');
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

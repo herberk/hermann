@@ -1,9 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel fixed-top" id="mainNav">
+{{--    <a id="profit" class="navbar-brand" href="{{ url('/') }}">--}}
+    <a href="{{ url('/') }}">
     <img  src="/storage/images/hb.png" width="23" height="23" />
-    <a id="profit" class="navbar-brand" href="{{ url('/') }}">
-{{--      {{ config('app.name', 'Laravel') }}--}}
+    </a>
+    <a id="profit" class="navbar-brand" href="{{ url('/home') }}">
+       <strong>&nbsp;
        {{ setting('company' ) }}
         {{setting( 'ano')}}
+       </strong>
        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -12,11 +16,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-{{--                <li class="nav-item">--}}
-{{--                   {!! Form::select('ano',config('options.ano'),null, ['class'=>'form-control-sm py-1']) !!}--}}
-
-
-{{--                </li>--}}
 
                 <li class="nav-item {{! Route::is('home')?:'active'}}">
                     <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-desktop" style=color:Tomato></i><strong>  Escritorio</strong></a>
@@ -98,8 +97,20 @@
                             <a class="dropdown-item" href="{{ route('activiti') }}">Lista actividades</a>
                         </div>
                     </li>
+                 </ul>
+{{--                <a href="ver-msge" class="btn btn-outline-dark btn-sm mx-1"><span class="badge badge-dark"> <i class="far fa-bell"></i></a>--}}
+               <ul class="navbar-nav ml-auto" >
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-outline-dark btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="ver-msge">Mensajes externos</a>
+                            <a class="dropdown-item" href="{{ route('chatear') }}">Chat usuarios</a>
+                        </div>
+                    </li>
                 </ul>
-                <a href="ver-msge" class="btn btn-outline-dark btn-sm mx-1"><span class="badge badge-dark"> <i class="far fa-bell"></i></a>
+                <a>&nbsp;</a>
                 <!-- Authentication Links      $mess}} -->
                 @guest
                     <li class="nav-item">
@@ -115,7 +126,7 @@
                  <img src="/storage/avatars/{{ Auth::user()->avatar }}" width="25" height="23" class="img-circle" />
                     <li class="nav-item dropdown" >
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->nickname }}<strong> Usuarios</strong> <span class="caret"></span>
+                            <strong> {{ Auth::user()->nickname }}</strong> <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" >

@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class empresa extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
 
     protected $table = 'empresas';
     protected $dates = ['deleted_at'];
@@ -36,7 +36,6 @@ class empresa extends Model
         'softDeletes'
     ];
 
-    use LogsActivity;
 
     protected static $logAttributes = ['name', 'rut','name_corto'];
     protected static $logName = 'Empresas-Empresa';

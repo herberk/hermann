@@ -67,4 +67,8 @@ class User extends Authenticatable
             return $this->active ? 'active' : 'inactive';
         }
     }
+    public function messages()
+    {
+        return $this->hasMany('App\Models\varias\Message');
+    }
 }

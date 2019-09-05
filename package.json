@@ -23,7 +23,10 @@
         "vue": "^2.6.10"
     },
     "dependencies": {
-        "npm": "^6.10.2",
+        "laravel-echo": "^1.5.4",
+        "moment": "^2.24.0",
+        "npm": "^6.11.2",
+        "pusher-js": "^5.0.0",
         "toastr": "^2.1.4",
         "vue-form-wizard": "^0.8.4",
         "vue-template-compiler": "^2.6.10",

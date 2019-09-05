@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\models\varias\Activity;
 use App\models\varias\message;
 use Illuminate\Http\Request;
+
 
 class ConfigController extends Controller
 {
@@ -17,10 +17,11 @@ class ConfigController extends Controller
 
     public function postContact(Request $request)
     {
-        $this->validate($request, [
+         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
-            'message'=>'required'
+            'message'=>'required',
+            'user_id'=>'required'
         ]);
         message::create($request->all());
         $notification = array(

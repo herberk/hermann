@@ -55,7 +55,6 @@ class DatabaseSeeder extends Seeder
             EmpresasTableSeeder::class,
             DirectoriosSeeder::class,
             FicherosSeeder::class,
-            MessagesTableSeeder::class,
             girosasTableSeder::class,
             girosbsTableSeder::class,
             GirosTableSeeder::class,
@@ -68,6 +67,7 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             TeamSeeder::class,
             UserSeeder::class,
+            MessagesTableSeeder::class,
             empresa_juradaTableSeeder::class,
 
         ]);

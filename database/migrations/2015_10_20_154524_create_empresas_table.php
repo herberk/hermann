@@ -45,8 +45,6 @@ class CreateEmpresasTable extends Migration {
             $table->date('fe_diario')->nullable();
             $table->string('reg_comercio')->nullable();
             $table->text('notas')->nullable();
-//            $table->integer('jurada_id')->unsigned();
-//            $table->foreign('jurada_id')->references('id')->on('juradas');
             $table->softDeletes();
             $table->timestamps();
         });

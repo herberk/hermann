@@ -8,7 +8,7 @@
                 <div class="clearfix">
                     <div class="Display4 float-left"></div>
                     <h4><i class="far fa-money-bill-alt"></i> Determinacion del capital propio tributario</h4>
-                    <h5 class="card-title"> Para la Empresa:  {{ setting('por_nombrar') }} y el Año {{setting('ano')}}</h5>
+                    <h5 class="card-title"> Para la Empresa:  <strong> {{ setting('company') }}</strong> y el año comercial: <strong>{{ setting('ano') }}</strong></h5>
                     <p class="card-text"> Mètodo activos menos pasivos a valor Tributario. </p>
                     @include('shared._errors')
                 </div>
@@ -22,19 +22,16 @@
            @endif
                 <div class="accordion" id="accordionExample">
                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                   @include('capital.partials._total')
-                                </button>
-                        </div>
+                       <div class="card-header" >
+                               @include('capital.partials._activo')
+                       </div>
                        {{-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"></div>--}}
                     </div>
                     <div class="card">
                        <div class="card-header" id="headingTwo">
                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <div class="clearfix">
-                                   <span class="badge badge-primary"> <strong>2 Menos:</strong></span>  Valores I.N.T.O. y cuentas complementarias de activo
-                                        <div class="float-right">Float right on all viewport sizes</div><br>
+                                    <strong><span class="badge badge-primary"> 2 Menos:</span>  Valores I.N.T.O. y cuentas complementarias de activo</strong>
                                 </div>
                            </button>
                       </div>
@@ -53,10 +50,8 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="heading">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
-                                    @include('capital.partials._efectivo')
-                                </button>
+                        <div class="card-header" >
+                              @include('capital.partials._efectivo')
                         </div>
                       {{--  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample"> </div>--}}
                     </div>
@@ -72,27 +67,22 @@
                     </div>
                     <div class="card">
                         <div class="card-header" >
-                            <div class="card-body" >
                                 @include('capital.partials._propio')
-                            </div>
                         </div>
                       </div>
                     <div class="card">
                         <div class="card-header" >
-                            <div class="card-body" >
                                 @include('capital.partials._correccion')
 
-                            </div>
                         </div>
                     </div>
-
                     <div class="form-group float-right mt-3">
                         @if ($view == 'edit')
                             <a href="{{ route('capital.index') }}"  class="btn btn-outline-dark btn-sm"><i class="fa fa-undo"></i> Regresar a lista Capital</a>
                             <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i>  Modificar Capital</button>
                          @else
                             <a href="{{ route('capital.index') }}"  class="btn btn-outline-dark btn-sm"><i class="fa fa-undo"></i> Regresar a lista Capital</a>
-                            <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i>  Guarda Capital</button>
+                            <button type="submit" class="btn btn-outline-success btn-sm"><i class="fa fa-save" onclick="sumartot();"></i>  Guarda Capital</button>
                          @endif
 
                     </div>

@@ -5,9 +5,11 @@ namespace App\models\varias;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Setting extends Model
 {
+    use LogsActivity;
 
     protected $connection = 'dbsql';
     /**
@@ -18,6 +20,10 @@ class Setting extends Model
 
   //  protected $guarded = [];
     protected $fillable = ['name','val','type','empresas_id'];
+
+    protected static $logAttributes = ['name','val','type','empresas_id'];
+    protected static $logName = 'varias-message';
+
     /**
      * Add a settings value
      *

@@ -64,7 +64,7 @@
                 @endtooltip
                 @tooltip
                 @slot('mensa', 'Enviar a papelera empresa')
-                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-times-circle"></i></button>
                 @endtooltip
             </form>
         @endif

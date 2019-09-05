@@ -19,6 +19,7 @@
         var tot5 = document.getElementById('valtributario32').value;
         var total = parseInt(tot1)+parseInt(tot2)+parseInt(tot3)+parseInt(tot4)+parseInt(tot5);
         document.getElementById('efectivo').value=total;
+        // document.getElementById('propio').value=total;
 
         var tot6 = document.getElementById('pasivo51').value;
         var totalfin = total+parseInt(tot6)
@@ -100,7 +101,6 @@
         sumartot();
     }
     function multiplica() {
-    
         var tot7 = document.getElementById('cmanual').value;
         totalfin = document.getElementById('propio').value;
         document.getElementById('revaloriza').value=((totalfin*tot7)/100);

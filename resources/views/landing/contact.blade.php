@@ -125,6 +125,7 @@
                                     {!! Form::textarea('message', null, array('placeholder' => 'Mensaje de 255 caracteres','class' => 'form-control','style'=>'height:100px')) !!}
                                     {!! $errors->first('message', '<span class="invalid-feedback text-danger" role="alert">:message</span>') !!}
                                 </div>
+                                      <input id="user_id" name="user_id" type="hidden" value=1>
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                     {!! Form::submit('Enviar',['class'=>'btn btn-success']) !!}
                                 </div>

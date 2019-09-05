@@ -4,12 +4,18 @@ namespace App\models\varias;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\auth\User;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class message extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
 
-    public $fillable = ['name','email','message','active'];
+    public $fillable = ['name','email','message','active', 'user_id'];
+
+    protected static $logAttributes = ['name','email','user_id'];
+    protected static $logName = 'varias-message';
+
 
     public function setStateAttribute($value)
     {
@@ -27,4 +33,8 @@ class message extends Model
     $count = message::where('active', 1)->count();
     return $count;
    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

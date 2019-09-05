@@ -1,0 +1,1 @@
+<?php echo $__env->make('setting.fields._text', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\HerBerk\resources\views/setting/fields/number.blade.php ENDPATH**/ ?>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Empresas;
 
+use App\Exports\CapitalExport;
+use App\Exports\CapitalFromView;
 use App\Http\Requests\Capital\CreateCapitalRequest;
 use App\Http\Requests\Capital\EditCapitalRequest;
 use App\Models\empresas\capital;
@@ -9,6 +11,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kamaln7\Toastr\Facades\Toastr;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CapitalController extends Controller
 {
@@ -27,8 +30,15 @@ class CapitalController extends Controller
         $capital = capital::where('empresas_id',setting('id_empresa'))   //->sum('capitaltri')
         ->orderBy('ano','ASC')
         ->get();
-        $view ='index';
-        return view('capital.indexCapital',compact('capital','view'));
+        $view = 'index';
+        return view('capital.indexCapi', compact('capital','view'));
+    }
+    public function trashed(){
+        $capital = capital::onlyTrashed()->paginate();
+        return view('capital.indexCapi', [
+            'capital'=>$capital,
+            'view' => 'trash',
+        ]);
     }
 
     /**
@@ -152,7 +162,6 @@ class CapitalController extends Controller
             Toastr::error($message, $title);
             return redirect()->route('capitalcreate');
         }
-
         return view('capital.newCapital', compact('capital','view'));
     }
 
@@ -235,30 +244,60 @@ class CapitalController extends Controller
      * @param  \App\Capital  $capital
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Capital $capital)
+    /*   public function destroy(Capital $capital)
     {
         //
+    }*/
+    public function trash($id)
+    {
+        $capital = capital::findOrFail($id);
+        $capital->delete();
+        $message='El capiatl fue Borrado   '." <a href='users/restore/$capital->id'> Click aqui </a> " .  'Para restaurar'  ;
+        $title ="";
+        Toastr::success($message, $title);
+        return redirect()->route('capital.index');
     }
+
+    public function destroy($id)
+    {
+        // No se ha implementado
+        $user = User::onlyTrashed()->where('id', $id)->firstOrFail();
+        $user->forceDelete();
+        $title = "";
+        $message='El Usuario '.$user->name.' fue eliminado permanentemente';
+        Toastr::success($message, $title);
+        return redirect()->route('users.trashed');
+
+    }
+    public function restore( $id )
+    {
+        //Indicamos que la busqueda se haga en los registros eliminados con withTrashed
+        $capital = capital::withTrashed()->where('id', '=', $id)->first();
+        //Restauramos el registro
+        $capital->restore();
+        $title = "";
+        $message='El registro fue restaurado';
+        Toastr::success($message, $title);
+        return redirect()->route('capital.index');
+    }
+
 
     function exports($ano, $pd) //$id,$pd
     {
-
-        $date = date('d-m-Y');
-        $capital = capital::where('empresas_id',(setting('id_empresa')))
-            ->where('ano',$ano)
-            ->first();
-        if (empty($capital)){
-          $message='No hay datos para: '.setting('company').' y año';
-           $title = "";
-            Toastr::error($message, $title);
-            return redirect()->route('capitalcreate');
-        }
-//   if ($pd <> 0) {
-//            $user = User::findOrFail($id);
-//            $date = date('d-m-Y');
-//            $pdf = PDF::loadView('users.exports.show', compact('user','date'));
-//        }
-        if ($pd == 0) {
+        if ($pd <> 3) {
+            $date = date('d-m-Y');
+            $capital = capital::where('empresas_id',(setting('id_empresa')))
+                ->where('ano',$ano)
+                ->first();
+            if (empty($capital)){
+              $message='No hay datos para: '.setting('company').' y año';
+               $title = "";
+                Toastr::error($message, $title);
+                return redirect()->route('capitalcreate');
+            }
+         }
+        if ($pd == 3) {
+            return Excel::download(new CapitalFromView(),'Capital.xlsx');
           //  return $this->excel->download((new UsersExport())->forYear(2018), 'users.xlsx');
         } elseif ($pd == 1) {
             $pdf = PDF::loadView('capital.exports.showpdf', compact('date','capital'));
@@ -267,5 +306,9 @@ class CapitalController extends Controller
             $pdf = PDF::loadView('capital.exports.showpdf', compact('date','capital'));
             return $pdf->stream('capital.pdf');
         }
+    }
+    function export()
+    {
+        return Excel::download(new CapitalExport, 'capitales.xlsx');
     }
 }
