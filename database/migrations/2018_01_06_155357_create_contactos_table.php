@@ -15,9 +15,9 @@ class CreateContactosTable extends Migration
     {
         Schema::create('contactos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('rut',12)->nullable()->unique();
+            $table->string('rut',12)->nullable();
             $table->string('name')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('fono')->nullable();
             $table->text('notas')->nullable();
             $table->integer('empresas_id')->unsigned();

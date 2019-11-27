@@ -42,7 +42,8 @@
                         <a class="dropdown-item" href="{{ url('empresa/papelera')}}">Papelera Empresa</a>
                         <a class="dropdown-item" href="{{ url('creatempresa')}}">Nueva Empresa</a>
                          <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/contactos') }}"><i class="far fa-list-alt"></i> Lista de Contactos</a>
+{{--                        <a class="dropdown-item" href="{{ url('/contactos') }}"><i class="far fa-list-alt"></i> Lista de Contactos</a>--}}
+                        <a class="dropdown-item" href="{{ url('listacontactos') }}"><i class="far fa-list-alt"></i> Lista de Contactos</a>
                         <a class="dropdown-item" href="{{ url('listasocios') }}"><i class="far fa-list-alt"></i> Lista de Socios</a>
                         <a class="dropdown-item" href="{{ url('bancos/index') }}"><i class="far fa-list-alt"></i> Lista de Bancos</a>
                          <a class="dropdown-item" href="{{ url('/capital') }}"><i class="far fa-list-alt"></i> Lista de Capital Propio</a>

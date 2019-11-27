@@ -34,8 +34,6 @@
 @endif
 
 
-
-
 @section('script')
 <script>
 $('#NoteModalLong').modal('show');

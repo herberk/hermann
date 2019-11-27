@@ -31,6 +31,10 @@ return [
         'index' => 'Listado de socios',
         'trash' => 'Papelera de socios',
     ],
+    'titlecon' => [
+        'index' => 'Listado de contactos',
+        'trash' => 'Papelera de contactos',
+    ],
 
     'roles' => ['admin' => 'Admin', 'user' => 'Usuario'],
     'states' => ['active' => 'Activo', 'inactive' => 'Inactivo'],

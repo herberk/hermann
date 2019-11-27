@@ -168,4 +168,6 @@
 
     </div>
 </div>
-
+<script>
+document.getElementById('acciones').readOnly = true;
+</script>

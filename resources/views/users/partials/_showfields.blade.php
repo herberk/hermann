@@ -1,4 +1,3 @@
-
     <div class="col-sm-5">  {{--el sm hace que se pongan uno sobre otro--}}
         <div class="card pt-2 px-2">
             <p><strong>Nombre Corto</strong>: {{ $user->nickname }}</p>

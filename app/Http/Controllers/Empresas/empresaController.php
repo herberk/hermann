@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresas;
 
+
 use Faker\Provider\DateTime;
 use App\Exports\EmpresasExport;
 use Illuminate\Http\Request;
@@ -9,10 +10,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEmpresasRequest;
 use App\Http\Requests\EditEmpresasRequest;
 use App\Models\empresas\{
-    empresa, contacto, jurada, socio };
+    empresa, contacto, jurada, socio,banco };
 use Illuminate\Support\Facades\DB;
 use Kamaln7\Toastr\Facades\Toastr;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CapitalFromView;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class empresaController extends Controller
 {
@@ -87,8 +90,14 @@ class empresaController extends Controller
     }
 
     public function show($id){
+        $capital = $this->suma($id);
+        $socios = Socio::where('empresas_id',($id))->get();
+        $bancos = Banco::where('empresas_id',($id))->get();
+//        $juradas = jurada::where('empresa_id',($id))->get();
+        $contactos = Contacto::where('empresas_id',($id))->get();
         $empresas = empresa::findOrFail($id);
-        return view('empresas.show', compact('empresas'));
+        $view ='show';
+        return view('empresas.show', compact('empresas','view','contactos','capital','socios','bancos','juradas'));
     }
 
 
@@ -176,16 +185,20 @@ class empresaController extends Controller
 
     public function restore( $id )
     {
-       /* //Indicamos que la busqueda se haga en los registros eliminados con withTrashed
-        $user = User::withTrashed()->where('id', '=', $id)->first();
-        //Restauramos el registro
-        $user->restore();
-        $userprofile = UserProfile::withTrashed()->where('id', '=', $id)->first();
-        $userprofile->restore();
-        $title = "";
-        $message='El Usuario '.$user->name.' fue restaurado';
+        //Indicamos que la busqueda se haga en los registros eliminados con withTrashed
+        $empresas = empresa::withTrashed()->where('id', '=', $id)->first();
+        $empresas->restore();
+        $message='La empresa '.$empresas->name_corto.' fue RESTAURADA  ';
+        $title ="";
         Toastr::success($message, $title);
-        return redirect()->route('users.index');*/
+        return redirect()->route("empresaindex");
+
+    }
+    public function destroy($id){
+        $message='La empresa no se puede eliminar ';
+        $title ="";
+        Toastr::Error($message, $title);
+        return redirect()->route("empresaindex");
     }
 
     public function logo($id){
@@ -227,6 +240,36 @@ class empresaController extends Controller
         Toastr::success($message, $title);
         return redirect()->route("empresaindex");
     }
+
+    function exports($id, $pd) //$id,$pd
+    {
+        if ($pd <> 3) {
+              $date = date('d-m-Y');
+            $capital = $this->suma($id);
+            $socios = Socio::where('empresas_id',($id))->get();
+            $bancos = Banco::where('empresas_id',($id))->get();
+            $contactos = Contacto::where('empresas_id',($id))->get();
+            $empresas = empresa::findOrFail($id);
+            $view ='pdf';
+            if (empty($capital)){
+                $message='No hay datos para: '.setting('company').' y año';
+                $title = "";
+                Toastr::error($message, $title);
+                return redirect()->route('capitalcreate');
+            }
+        }
+        if ($pd == 3) {
+            return Excel::download(new CapitalFromView(),'Capital.xlsx');
+            //  return $this->excel->download((new UsersExport())->forYear(2018), 'users.xlsx');
+        } elseif ($pd == 1) {
+            $pdf = PDF::loadView('empresas.exports.pdf_show', compact('empresas','contactos','bancos','socios','date','capital','view'));
+            return $pdf->download('empresa.pdf');
+        } elseif ($pd == 2) {
+            $pdf = PDF::loadView('empresas.exports.pdf_show', compact('empresas','contactos','bancos','socios','date','capital','view'));
+            return $pdf->stream('empresas.pdf');
+        }
+    }
+
     function export()
     {
         return Excel::download(new EmpresasExport, 'empresas.xlsx');

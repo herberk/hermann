@@ -34,10 +34,10 @@
                 @method('DELETE')
                 @tooltip
                 @slot('mensa', 'Restaurar empresa')
-                <a href="{{ '#' }}" class="btn btn-outline-secondary btn-sm"><i class="far fa-window-restore"></i></a>
-                @endtooltip<!-- route('restore/restore', $empresas)-->
+                <a href="{{ route('empresa/restore', $empresas->id) }}" class="btn btn-outline-secondary btn-sm"><i class="far fa-window-restore"></i></a>
+                @endtooltip
                 @tooltip
-                @slot('mensa', 'Elimina empresa')
+                @slot('mensa', 'Elimina empresa NO habilitado')
                 <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-times-circle"></i></button>
                 @endtooltip
             </form>
@@ -64,7 +64,7 @@
                 @endtooltip
                 @tooltip
                 @slot('mensa', 'Enviar a papelera empresa')
-                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-times-circle"></i></button>
+                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash fa-sm"></i></button>
                 @endtooltip
             </form>
         @endif

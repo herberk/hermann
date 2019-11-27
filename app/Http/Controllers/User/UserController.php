@@ -55,10 +55,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-//    return view('users.show', compact('user'));
-
         return $this->form('users.show', $user);
-
     }
 
 
@@ -158,7 +155,7 @@ class UserController extends Controller
         if ($pd <> 0) {
             $user = User::findOrFail($id);
             $date = date('d-m-Y');
-            $pdf = PDF::loadView('users.exports.show', compact('user','date'));
+            $pdf = PDF::loadView('users.exports.pdf_user', compact('user','date'));
         }
         if ($pd == 0) {
            return $this->excel->download((new UsersExport())->forYear(2018), 'users.xlsx');

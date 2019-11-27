@@ -1,8 +1,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ver Usuario</title>
-
+    <title>Empresa</title>
 </head>
 <style>
     html {
@@ -14,8 +13,12 @@
     }
 </style>
 <p Align="right">Fecha del Informe: {{ $date }}</p>
-<h3  Align="center"><strong>Nombre</strong> : {{ $user->name }}</h3>
+<h3  Align="center"><strong>Nombre</strong> : {{ $empresas->name }}</h3>
 <br>
-<img class="rounded-circle" src="{{public_path()}}/storage/avatars/{{ $user->avatar }}" />
-@include('users.partials._showfields')
+<img class="rounded-circle" src="/storage/logos/{{ $empresas->logo }}" />
+
+@include('empresas.partials._showfields')
+
+@include('empresas.partials._fieldsocios')
+@include('empresas.partials._contacto')
 

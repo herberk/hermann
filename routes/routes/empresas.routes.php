@@ -10,14 +10,10 @@ Route::get('/empresa/{id}', 'EmpresaController@show')
     ->name('empresa.show');
 
 Route::put('empresa/update/{id}', ['as' =>  'empresa/update', 'uses' => 'EmpresaController@update']);
-
 Route::patch('/empresa/{empresa}/papelera', 'EmpresaController@trash')->name('empresa.trash');
-Route::get('/restore/{id}', ['as' =>  'empresas/restore', 'empresas' => 'EmpresaController@restore']);
+Route::get('empresa/restore/{id}', ['as' =>  'empresa/restore', 'uses' => 'EmpresaController@restore']);
 Route::delete('/empresa/{id}', 'EmpresaController@destroy')->name('empresa.destroy');
 Route::get('empresa/papelera', 'EmpresaController@trashed')->name('empresa.trashed');
-
-
-//Route::get('enconstrucion', 'EmpresaController@enconstrucion');
 
 Route::get('empresa/shownotas/{id}','EmpresaController@shownotas')->name('empresashownotas');
 Route::put('empresa/updatenota/{id}',['as' =>  'empresa/updatenota', 'uses' => 'EmpresaController@updatenota']);
@@ -27,21 +23,23 @@ Route::post('logo/{id}', 'EmpresaController@update_logo')->name('logo');
 
 Route::get('empresa/juradas/{id}',['uses' => 'EmpresaController@selecjurada','as' => 'empresajuradas']);
 Route::put('juradasselstore/{id}',['uses' => 'EmpresaController@update_seljurada','as' => 'juradasselstore']);
-
+Route::get('empresaexports/{ano}/{pd}', 'EmpresaController@exports')->name('empresaexports');
 Route::get('/empresa/excel','EmpresaController@Export')->name('empresaexcel');
 
 //contactos
-Route::get('/contactos', function () {
-    return view('empresas.contactos.contactos', [
-        'view' => 'index',
-    ]);
-});
+Route::get('listacontactos',  'ContactoController@index')->name('listacontactos');
+Route::get('/contactos/papelera', 'ContactoController@trashed')->name('contactos.trashed');
+Route::get('contacto/create','ContactoController@create')->name('contactocreate');
+Route::post('storecontacto',['uses' => 'ContactoController@store','as' =>'storecontacto']);
+Route::get('/contacto/edit/{id}','ContactoController@edit')->name('contactoedit');
+Route::put('contacto/update/{id}', ['as' =>  'contacto/update', 'uses' => 'ContactoController@update']);
+Route::get('contacto/trash/{id}', ['as' => 'contacto/trash', 'uses' => 'ContactoController@trash']);
+Route::get('contacto/restore/{id}', ['as' => 'contacto/restore', 'uses' => 'ContactoController@restore']);
+Route::get('/contacto/excel','ContactoController@export')->name('contactoexcel');
+Route::get('contacto/shownotas/{id}','ContactoController@shownotas')->name('contactoshownotas');
+Route::put('contacto/updatenota/{id}',['as' =>  'contacto/updatenota', 'uses' => 'ContactoController@updatenota']);
+Route::delete('/contacto/{id}', 'ContactoController@destroy')->name('contacto.destroy');
 
-Route::get('/contactosQuery','ContactoController@contactosQuery')->name('contactosQuery');
-Route::post('/contactoscreate','ContactoController@create')->name('contactoscreate');
-Route::delete('/contactosdelete/{id}','ContactoController@destroy')->name('contactosdelete');
-Route::put('/contactosupdate/{id}','ContactoController@update')->name('contactosupdate');
-Route::put('/contactosnotas/{id}','ContactoController@notasupdate')->name('contactosnotas');
 
 //Bancos
 Route::get('bancos/index',['uses' => 'BancoController@index','as' => 'bancosindex']);

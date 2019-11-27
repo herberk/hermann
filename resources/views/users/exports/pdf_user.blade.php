@@ -16,6 +16,6 @@
 <p Align="right">Fecha del Informe: {{ $date }}</p>
 <h3  Align="center"><strong>Nombre</strong> : {{ $user->name }}</h3>
 <br>
-<img class="rounded-circle" src="{{public_path()}}/storage/avatars/{{ $user->avatar }}" />
+<img class="rounded-circle" src="/storage/logos/{{ $user->avatar }}" width="150" height="150" />
 @include('users.partials._showfields')
 

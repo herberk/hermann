@@ -28,7 +28,6 @@ class CreateCapitalRequest extends FormRequest
         return [
             'activo' => 'required|numeric|min:1|max:9999999999999',
             //Validar que no hay repètidos en empresa y mismo año
-
             'into21'    => 'numeric',
             'into1'     => 'numeric',
             'into2'     => 'numeric',
@@ -86,11 +85,11 @@ class CreateCapitalRequest extends FormRequest
         return [
             'activo.required' => 'El campo Activo es obligatorio',
             'activo.numeric'  => 'El campo Activo es numerico',
-//            'activo.min:1'  => 'El campo Activo debe ser mayor a 1',
+//          'activo.min:1'  => 'El campo Activo debe ser mayor a 1',
             'activo.max:9999999999999'  => 'El campo Activo no puede ser mayor',
             'ano.required' => 'El año es obligatorio',
             'ano.numeric' => 'El campo año es numerico',
-//            'id_empresa.min:1' => 'Seleccione una empresa',
+//          'id_empresa.min:1' => 'Seleccione una empresa',
             'id_empresa.required' => 'El id empresa es requerido',
             'id_empresa.numeric'  => 'El id empresa es numerico',
         ];

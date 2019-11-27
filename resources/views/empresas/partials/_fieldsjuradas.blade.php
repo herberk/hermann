@@ -4,7 +4,7 @@
             <div class="form-row">
                 <div class="col-4 mt-1"><u>N° Descripcion</u></div>
                 <div class="col-2 mt-1"><u>Vencimiento</u></div>
-                <div class="col-1 mt-1"><u>N° Cert.</u></div>
+                <div class="col-1 mt-1"><u>Cert.</u></div>
                 <div class="col-2 mt-1"><u>Vence Cert.</u></div>
                 <div class="col-2 mt-1"><u>Estado.</u></div>
                 <div class="col-1 mt-1" id="close"><a href="javascript:cerrar2();">Cerrar</a></div>

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\empresas\contacto;
 use App\models\empresas\empresa;
+use Kamaln7\Toastr\Facades\Toastr;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ContactosExport;
 
 class ContactoController extends Controller
 {
@@ -13,7 +16,6 @@ class ContactoController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,65 +23,32 @@ class ContactoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    public function contactosQuery(Request $request){
-         $empresas  = Empresa::with('contactos')->paginate(10);
-          $contactos = contacto::with('empresas')
-            ->orderBy('empresas_id','ASC',$request)
-           ->paginate(10);
-        return [
-            'pagination' => [
-                'total'         => $contactos->total(),
-                'current_page'  => $contactos->currentPage(),
-                'per_page'      => $contactos->perPage(),
-                'last_page'     => $contactos->lastPage(),
-                'from'          => $contactos->firstItem(),
-                'to'            => $contactos->lastItem(),
-            ],
-            'empresas'  => $empresas,
-            'contactos' => $contactos
-        ];
+        $contactos = contacto::with('empresas')->get();
+        return view('empresas.contactos.listacontactos',[
+            'contactos'=>$contactos,
+            'view' => 'index',
+        ]);
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function trashed()
     {
-        $empresas = empresa::onlyTrashed()->paginate();
-        return view('empresas.index', [
-            'empresas' => $empresas,
+        $contactos = contacto::onlyTrashed()->paginate();
+        return view('empresas.contactos.listacontactos', [
+            'contactos' => $contactos,
             'view' => 'trash',
         ]);
     }
 
-    public function create(Request $request){
-
-     $this->validate($request, [
-            'name'   => 'required|max:50',
-            'email'  => 'required|unique:contactos|email',
-            'empresas_id'=> 'required'
-        ]);
-
-        $contactos = new contacto();
-        $contactos->rut  =  $request->rut;
-        $contactos->name =  $request->name;
-        $contactos->email = $request->email;
-        $contactos->fono =  $request->fono;
-        $contactos->notas ='';
-        $contactos->empresas_id =$request->empresas_id;
-        $contactos->save();
-
-        return response()->json([
-            'contactos' => $contactos,
-            'message' => 'Success'
-        ], 200);
+    public function create() {
+        $empresas = empresa::orderBy('name_corto', 'ASC')->get();
+        $view = 'create';
+        $contactos = new contacto;
+        return view('empresas.contactos.modal', compact('contactos', 'empresas', 'view'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -88,9 +57,19 @@ class ContactoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $contactos = new contacto();
+        $contactos->rut = ltrim($request->rut, "0");
+        $contactos->name = $request->name;
+        $contactos->email = $request->email;
+        $contactos->fono = $request->fono;
+        $contactos->empresas_id = $request->empresa_id;
+        $contactos->save();
 
+        $message='El contacto '.$contactos->name.' fue Guardadoa';
+        $title = "";
+        Toastr::success($message, $title);
+        return redirect()->route("listacontactos");
+    }
     /**
      * Display the specified resource.
      *
@@ -110,9 +89,11 @@ class ContactoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $empresas = empresa::orderBy('name_corto','ASC')->get();
+        $contactos = contacto::findOrFail($id);
+        $view = 'edit';
+        return view('empresas.contactos.modal', compact('contactos','empresas','view'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -120,46 +101,60 @@ class ContactoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id )
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|max:50',
-            'email'  => 'required|email',
-//            'email'=>'required|unique:employees,email,'.$this->id.'|email',
-            'empresas_id'=> 'required'
-        ]);
-        $contactos = contacto::find($request->id);
-        $contactos->rut = request('rut');
-        $contactos->name= request('name');
-        $contactos->email = request('email');
-        $contactos->fono = request('fono');
-        $contactos->empresas_id = request('empresas_id');
+        $contactos=contacto::findOrFail($id);
+        $contactos->rut = ltrim($request->rut, "0");
+        $contactos->name = $request->name;
+        $contactos->email = $request->email;
+        $contactos->fono = $request->fono;
+        $contactos->empresas_id = $request->empresa_id;
         $contactos->save();
-
-        return response()->json([
-            'message' => 'Task updated successfully!'
-        ], 200);
+        $message='El contacto '.$contactos->name.' fue modificado';
+        $title = "";
+        Toastr::success($message, $title);
+        return redirect()->route("listacontactos");
+    }
+    public function shownotas($id){
+        $contactos=contacto::findOrFail($id);
+        $view = 'nota';
+        return view('empresas.contactos.modal', compact('contactos','view'));
+    }
+    public function updatenota(Request $request, $id) {
+        $contactos=contacto::findOrFail($id);
+        $contactos->notas = $request->editor1;
+        $contactos->save();
+        $message='La Nota de '.$contactos->name.' fue Modificada';
+        $title = "";
+        Toastr::success($message, $title);
+        return redirect()->route("listacontactos");
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function trash( $id)  {
+        $contactos=contacto::findOrFail($id);
+        $contactos->delete();
+        $message='El Contacto '.$contactos->name.' Fue borrado   '." <a href='contacto/restore/$contactos->id'> CLICK AQUI </a> " .  'para restaurar'  ;
+        $title ="";
+        Toastr::success($message, $title);
+        return redirect()->route("listacontactos");
+    }
+
+    public function restore($id) {
+        //Indicamos que la busqueda se haga en los registros eliminados con withTrashed
+        $contactos=contacto::withTrashed()->where('id', '=', $id)->first();
+        //Restauramos el registro
+        $contactos->restore();
+        $message='El Contacto '.$contactos->name.' fue RESTAURADO  ';
+        $title ="";
+        Toastr::success($message, $title);
+        return redirect()->route("listacontactos");
+    }
     public function destroy($id){
         contacto::find($id)->delete();
     }
-
-
-    public function notasupdate(Request $request, $id){
-        $contactos = contacto::find($request->id);
-        $contactos->notas = request('notas');
-        $contactos->save();
-
-        return response()->json([
-            'message' => 'Task updated successfully!'
-        ], 200);
+    function export(){
+        return Excel::download(new ContactosExport, 'Contactos.xlsx');
     }
+
 }

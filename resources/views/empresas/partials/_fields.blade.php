@@ -260,9 +260,10 @@
         </div>   <!-- fin card-->
        @endif
        @if ($view == 'edit')
-           {{--Div que se ve con los contactos solo en edicion--}}
-
-           @include('empresas.partials._contacto')
+           <div class="card" >
+               <h5 class="ml-4"><strong>Personas de contacto de la empresa</strong><a href="javascript:mostrar3();"> Mostrar</a> </h5>
+               @include('empresas.partials._contacto')
+           </div>
        @endif
      </div>   <!-- fin seccion derecha-->
  </div>

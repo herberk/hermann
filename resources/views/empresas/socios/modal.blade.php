@@ -38,7 +38,6 @@
 
 @section('script')
 <script>
-    document.getElementById('acciones').readOnly = true;
     function myfunction(val) {
         alert("The input value has changed. The new value is: " + val);
         // document.getElementById('acciones').readOnly = false;
